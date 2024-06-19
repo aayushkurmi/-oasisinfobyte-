@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<div class="converter">
+    <h1>Temperature Converter</h1>
+    <input type="number" id="temperature" placeholder="Enter temperature" required>
+    <select id="unit">
+        <option value="Celsius">Celsius</option>
+        <option value="Fahrenheit">Fahrenheit</option>
+        <option value="Kelvin">Kelvin</option>
+    </select>
+    <button onclick="convertTemperature()">Convert</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function convertTemperature() {
+        const tempInput = document.getElementById('temperature').value;
+        const unit = document.getElementById('unit').value;
+        const resultDiv = document.getElementById('result');
+
+        if (isNaN(tempInput) || tempInput === "") {
+            resultDiv.textContent = "Please enter a valid number.";
+            return;
+        }
+
+        const temperature = parseFloat(tempInput);
+
+        let resultText;
+
+        if (unit === "Celsius") {
+            const toFahrenheit = (temperature * 9/5) + 32;
+            const toKelvin = temperature + 273.15;
+            resultText = `${temperature}°C is ${toFahrenheit.toFixed(2)}°F and ${toKelvin.toFixed(2)}K`;
+        } else if (unit === "Fahrenheit") {
+            const toCelsius = (temperature - 32) * 5/9;
+            const toKelvin = toCelsius + 273.15;
+            resultText = `${temperature}°F is ${toCelsius.toFixed(2)}°C and ${toKelvin.toFixed(2)}K`;
+        } else if (unit === "Kelvin") {
+            const toCelsius = temperature - 273.15;
+            const toFahrenheit = (toCelsius * 9/5) + 32;
+            resultText = `${temperature}K is ${toCelsius.toFixed(2)}°C and ${toFahrenheit.toFixed(2)}°F`;
+        }
+
+        resultDiv.textContent = resultText;
+    }
+</script>
+
+</body>
+</html>
